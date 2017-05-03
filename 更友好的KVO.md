@@ -222,5 +222,19 @@
 ### 总结一下
 这个库代码很简单，里面很能体现作者在内存方面的考虑，防止内存引用循环，另外，当初里面会有个单例在里面是我没有想到的，这个单例能让所有的观察都在同一地方，对代码的控制是相当的有功力，我相信简化KVO的思路大家都有过，但是真的把这个东西能完美的做出来，还是需要花费挺大的心思。真的很感谢这些开源代码的贡献者，由衷的敬佩。
 
+总体的架构是：
+FBKVO
+一个object想要观察自己的path，就把用FBKVOC用一个NSMapTable以这个object对象做为key，然后把这些信息包装成一个kvoinfo去放到一个Set里面，然后作为value存到NSMapTable（字典一样，加个内存控制的条件）里面。
+shareKVO
+然后在一个单例里面去建立观察，这个时候需要object把观察者设置成单例来处理
+_infos是hashmap就像是个集合一样，加内存控制的条件，然后记录KVOInfo的信息
+ [object addObserver:self forKeyPath:info->_keyPath options:info->_options context:(void *)info];
+ 接着在回调的时候：
+FBKVOController *controller = info->_controller;
+id observer = controller.observer;
+if (info->_block) {info->_block(observer, object, change);}
+或者
+[observer performSelector:info->_action withObject:change withObject:object];
+执行，回调的时候时候添加的那个observer。
 
 
