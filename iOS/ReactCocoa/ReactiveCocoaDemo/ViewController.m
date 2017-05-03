@@ -11,6 +11,8 @@
 #import "LoginSuccessViewController.h"
 
 #import "RACSignalViewController.h"
+//#import <SDWebImage/UIImageView+WebCache.h>
+
 
 typedef void(^SignInRespongse)(BOOL result);
 
@@ -24,6 +26,8 @@ typedef void(^SignInRespongse)(BOOL result);
 @property (nonatomic, strong) NSArray *dataSource;
 
 @property (nonatomic, strong) UIButton *RACSignalButton;
+
+@property (nonatomic, strong) UIImageView *imageView;
 @end
 
 @implementation ViewController
@@ -51,6 +55,29 @@ typedef void(^SignInRespongse)(BOOL result);
     [self channelTest];
     
     [self addButton];
+    
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    _imageView.center = self.view.center;
+    _imageView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:_imageView];
+    
+//    NSURL *url = [NSURL URLWithString:@"http://d.vpimg1.com/upcb/2017/04/06/18/4_hlbd_570x273_90.jpg"];
+//    [_imageView sd_setImageWithURL:url placeholderImage:nil options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//        NSLog(@"receivedSize = %ld, expectedSize = %ld ", receivedSize, expectedSize);
+//    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        NSLog(@"imageURL = %@, expectedSize = %@ ", imageURL, image);
+//    }];
+    
+    Class cls = NSClassFromString(@"ZHAOYANG");
+    if (cls) {
+        NSLog(@"ZHAOYANG ==不存在的类");
+    }else{
+        NSLog(@"不存在就是不存在");
+    }
+    
+    if (NSClassFromString(@"UIViewController")) {
+        NSLog(@"UIViewController == 存在的类");
+    }
 }
 
 - (void)addButton {

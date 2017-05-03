@@ -8,8 +8,11 @@
 
 #import "LoginSuccessViewController.h"
 
+
 @interface LoginSuccessViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userInfoLabel;
+
+
 
 @end
 

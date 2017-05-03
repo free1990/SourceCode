@@ -7,8 +7,12 @@
 //
 
 #import "RACSignalViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
 
 @interface RACSignalViewController ()
+
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -65,6 +69,28 @@
     [concatSignal subscribeNext:^(NSString * x) {
         NSLog(@"concatSignal --- %@", x);
     }];
+    
+//    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+//    _imageView.center = self.view.center;
+//    _imageView.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:_imageView];
+//    
+//    NSURL *url = [NSURL URLWithString:@"http://d.vpimg1.com/upcb/2017/04/06/18/4_hlbd_570x273_90.jpg"];
+//    [_imageView sd_setImageWithURL:url placeholderImage:nil options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//        NSLog(@"receivedSize = %ld, expectedSize = %ld ", receivedSize, expectedSize);
+//    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        NSLog(@"imageURL = %@, expectedSize = %@ ", imageURL, image);
+//    }];
+    
+    
+    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/"]];
+    NSLog(@"dirEnum == %@", dirEnum);
+    
+    NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/"];
+    NSURL *pathUrl = [NSURL URLWithString:path];
+    NSDirectoryEnumerator *urlEnum = [[NSFileManager defaultManager] enumeratorAtURL:pathUrl includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:NULL]
+    ;
+    NSLog(@"urlEnum == %@", urlEnum);
 }
 
 - (void)didReceiveMemoryWarning {
