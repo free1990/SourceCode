@@ -11,6 +11,8 @@
 #import "SDImageCache.h"
 #import "BlocksKit.h"
 #import "A2DynamicDelegate.h"
+#import "UIAlertView+BlocksKit.h"
+
 
 
 @interface ViewController ()
@@ -80,9 +82,14 @@
     [dd implementMethod:@selector(alertView:willDismissWithButtonIndex:) withBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         NSLog(@"zhaoyang - You pushed button #%ld (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
     }];
-    
-    // Set the delegate
+     //Set the delegate
     alertView.delegate = dd;
+    
+    [alertView bk_setWillDismissBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        NSLog(@"zhaoyang - You pushed button #%ld (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
+    }];
+    
+    
     
     [alertView show];
     
