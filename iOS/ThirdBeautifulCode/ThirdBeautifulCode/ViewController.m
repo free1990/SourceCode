@@ -61,37 +61,66 @@
     self.title = @"xxxxx";
     
     
-    // Create an alert view
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Hello World!"
-                              message:@"This alert's delegate is implemented using blocks. That's so cool!"
-                              delegate:nil
-                              cancelButtonTitle:@"Meh."
-                              otherButtonTitles:@"Woo!",@"asdas", nil];
+//    // Create an alert view
+//    UIAlertView *alertView = [[UIAlertView alloc]
+//                              initWithTitle:@"Hello World!"
+//                              message:@"This alert's delegate is implemented using blocks. That's so cool!"
+//                              delegate:nil
+//                              cancelButtonTitle:@"Meh."
+//                              otherButtonTitles:@"Woo!",@"asdas", nil];
+//    
+//    // Get the dynamic delegate
+//    A2DynamicDelegate *dd = alertView.bk_dynamicDelegate;
+//    
+//    // Implement -alertViewShouldEnableFirstOtherButton:
+//    [dd implementMethod:@selector(alertViewShouldEnableFirstOtherButton:) withBlock:^(UIAlertView *alertView) {
+//        NSLog(@"Message: %@", alertView.message);
+//        return YES;
+//    }];
+//    
+//    // Implement -alertView:willDismissWithButtonIndex:
+//    [dd implementMethod:@selector(alertView:willDismissWithButtonIndex:) withBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//        NSLog(@"zhaoyang - You pushed button #%ld (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
+//    }];
+//     //Set the delegate
+//    alertView.delegate = dd;
+//    
+//    [alertView bk_setWillDismissBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//        NSLog(@"zhaoyang - You pushed button #%ld (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
+//    }];
+//    
+//    [alertView show];
     
-    // Get the dynamic delegate
-    A2DynamicDelegate *dd = alertView.bk_dynamicDelegate;
     
-    // Implement -alertViewShouldEnableFirstOtherButton:
-    [dd implementMethod:@selector(alertViewShouldEnableFirstOtherButton:) withBlock:^(UIAlertView *alertView) {
-        NSLog(@"Message: %@", alertView.message);
-        return YES;
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    A2DynamicDelegate *td = tableView.bk_dynamicDataSource;
+    
+    [td implementMethod:@selector(tableView:numberOfRowsInSection:) withBlock:^NSInteger(UITableView *tableView,NSInteger section) {
+        return 100;
+    }];
+
+    [td implementMethod:@selector(tableView:cellForRowAtIndexPath:) withBlock:^UITableViewCell*(UITableView *tableView, NSIndexPath *indexPath) {
+        static NSString * showUserInfoCellIdentifier = @"ShowUserInfoCell";
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:showUserInfoCellIdentifier];
+        if (cell == nil)
+        {
+            // Create a cell to display an ingredient.
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                           reuseIdentifier:showUserInfoCellIdentifier];
+        }
+        
+        // Configure the cell.
+        cell.textLabel.text=@"签名";
+        return cell;
     }];
     
-    // Implement -alertView:willDismissWithButtonIndex:
-    [dd implementMethod:@selector(alertView:willDismissWithButtonIndex:) withBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        NSLog(@"zhaoyang - You pushed button #%ld (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
-    }];
-     //Set the delegate
-    alertView.delegate = dd;
+    tableView.dataSource = td;
     
-    [alertView bk_setWillDismissBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        NSLog(@"zhaoyang - You pushed button #%ld (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
-    }];
+    [self.view addSubview:tableView];
     
     
     
-    [alertView show];
+    
     
 //    NSString *test = AFPercentEscapedStringFromString(@":-#-[]-@-,!-$-&-'-(-)-*-+-,-;-=-");
 //    NSString *test = AFPercentEscapedStringFromString(@"😔");
