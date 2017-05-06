@@ -41,7 +41,7 @@ _BKWeakAssociatedObject就是weak对象寄存的对象。
 
 
 -------
-### 便利的AssociatedObjects
+### 便利的block操作
 在开发的时候，block需要不同的执行的情况不同执行。这里为我们提供一些便利的方案，比如，指定block在某个线程上延迟多少时间执行或者在后台执行这些场景。看一下这部分实现的核心的代码：
 
 ```

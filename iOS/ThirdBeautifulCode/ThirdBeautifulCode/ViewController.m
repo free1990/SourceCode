@@ -98,6 +98,10 @@
     [td implementMethod:@selector(tableView:numberOfRowsInSection:) withBlock:^NSInteger(UITableView *tableView,NSInteger section) {
         return 100;
     }];
+    
+    [td implementMethod:@selector(tableView:numberOfRowsInSectionTest:) withBlock:^NSInteger(UITableView *tableView,NSInteger section) {
+        return 100;
+    }];
 
     [td implementMethod:@selector(tableView:cellForRowAtIndexPath:) withBlock:^UITableViewCell*(UITableView *tableView, NSIndexPath *indexPath) {
         static NSString * showUserInfoCellIdentifier = @"ShowUserInfoCell";
