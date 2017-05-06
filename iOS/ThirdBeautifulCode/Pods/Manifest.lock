@@ -29,6 +29,7 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - JSONModel (1.4.0)
   - KVOController (1.1.0)
   - libwebp (0.5.0):
     - libwebp/core (= 0.5.0)
@@ -67,21 +68,26 @@ PODS:
   - SDWebImage/WebP (3.8.2):
     - libwebp
     - SDWebImage/Core
+  - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0.4)
   - BlocksKit (~> 2.2.5)
+  - JSONModel (~> 1.4.0)
   - KVOController (~> 1.1.0)
   - ReactiveCocoa (~> 2.5)
   - SDWebImage (~> 3.8.2)
   - SDWebImage/WebP
+  - YYModel (~> 1.0.4)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  JSONModel: 58fe3f8c29ff95ed94e7ee7dde87e807f5da5371
   KVOController: 321b5fc59300fcaabd42c0f679baa7a27efbb2fd
   libwebp: 68ba2001ba6806ee52837ebd77a551a0b6567e4e
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 COCOAPODS: 0.39.0

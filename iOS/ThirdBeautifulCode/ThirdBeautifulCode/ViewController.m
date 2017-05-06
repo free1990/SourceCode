@@ -93,7 +93,7 @@
     
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
-    A2DynamicDelegate *td = tableView.bk_dynamicDataSource;
+    A2DynamicDelegate<UITableViewDataSource> *td = tableView.bk_dynamicDataSource;
     
     [td implementMethod:@selector(tableView:numberOfRowsInSection:) withBlock:^NSInteger(UITableView *tableView,NSInteger section) {
         return 100;
@@ -102,8 +102,7 @@
     [td implementMethod:@selector(tableView:cellForRowAtIndexPath:) withBlock:^UITableViewCell*(UITableView *tableView, NSIndexPath *indexPath) {
         static NSString * showUserInfoCellIdentifier = @"ShowUserInfoCell";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:showUserInfoCellIdentifier];
-        if (cell == nil)
-        {
+        if (cell == nil){
             // Create a cell to display an ingredient.
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                            reuseIdentifier:showUserInfoCellIdentifier];
@@ -117,9 +116,6 @@
     tableView.dataSource = td;
     
     [self.view addSubview:tableView];
-    
-    
-    
     
     
 //    NSString *test = AFPercentEscapedStringFromString(@":-#-[]-@-,!-$-&-'-(-)-*-+-,-;-=-");
