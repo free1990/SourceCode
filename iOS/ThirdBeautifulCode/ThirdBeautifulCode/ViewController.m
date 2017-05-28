@@ -21,9 +21,16 @@
 
 @implementation ViewController
 
+static  UIColor *UIColorFromHexWithAlpha(int hexValue, CGFloat a) {
+    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:a];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"123" forKey:@"zhaoyang"];
@@ -121,6 +128,46 @@
     
     [self.view addSubview:tableView];
     
+    
+    UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(20, 100,100, 50)];
+    
+    myView.backgroundColor = [UIColor whiteColor];
+    
+    //圆角
+    myView.layer.cornerRadius = 3; // 圆角的弧度
+    myView.layer.masksToBounds = YES;
+    
+    //渐变光泽
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = myView.bounds;
+    UIColor *startColor = UIColorFromHexWithAlpha(0xc58df7,1.0);
+    UIColor *endColor = UIColorFromHexWithAlpha(0x9ba1ff,1.0);
+    gradient.colors = [NSArray arrayWithObjects:(id)[startColor CGColor], (id)[endColor CGColor], nil];
+    gradient.startPoint = CGPointMake(0, .5);
+    gradient.endPoint = CGPointMake(1, .5);
+    [myView.layer insertSublayer:gradient atIndex:0];
+    
+    CALayer *maskLayer = [CALayer layer];
+    maskLayer.backgroundColor = [UIColor whiteColor].CGColor;
+    maskLayer.frame =  CGRectMake(0.5, 0.5, myView.bounds.size.width- 1, myView.bounds.size.height- 1);
+    maskLayer.cornerRadius = 3; // 圆角的弧度
+    maskLayer.masksToBounds = YES;
+    maskLayer.borderWidth = 0.5;
+    maskLayer.borderColor = [UIColor clearColor].CGColor;
+    
+    [gradient insertSublayer:maskLayer atIndex:0];
+    
+    [self.view addSubview:myView];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        myView.frame = CGRectMake(20, 100,200, 50);
+        
+        [myView.layer layoutSublayers];
+//        gradient.frame = myView.bounds;
+        
+//        maskLayer.frame =  CGRectMake(0.5, 0.5, myView.bounds.size.width- 1, myView.bounds.size.height- 1);
+    });
+
     
 //    NSString *test = AFPercentEscapedStringFromString(@":-#-[]-@-,!-$-&-'-(-)-*-+-,-;-=-");
 //    NSString *test = AFPercentEscapedStringFromString(@"😔");
